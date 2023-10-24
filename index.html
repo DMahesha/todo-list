@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+    <div id="container"></div>
+    <dialog id="dialog">
+        <div>
+            Name: <input type="text" id="todo-name" placeholder="Name">
+        </div>
+        <div>
+            Notes: <input type="text" id="todo-notes" placeholder="Notes">
+        </div>
+        <div>
+            Due Date: <input type="date" id="todo-duedate">
+        </div>
+        <div>
+            Select priority
+            <select id="todo-priority">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            </select>
+        </div>
+        <div id="dialog-buttons">
+            <button autofocus id="add-todo">Add</button>
+            <button id="close-dialog">Exit</button>
+        </div>
+    </dialog>
+</body>
+<script src="/todo/script.js"></script>
+</html>
