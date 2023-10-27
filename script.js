@@ -19,11 +19,14 @@ const container = document.getElementById('container')
 const dialog = document.getElementById('dialog')
 const closeDiaglog = document.getElementById('close-dialog')
 const addToDo = document.getElementById('add-todo')
+const dialogChangeName = document.getElementById('dialog-change-name')
+const changeNameAdd = document.getElementById('change-name-add')
+const changeNameExit = document.getElementById('change-name-exit')
 
 let todos = []
 
 const newToDo = document.createElement('button')
-newToDo.textContent = 'New ToDo'
+newToDo.textContent = 'New Todo'
 container.appendChild(newToDo)
 
 newToDo.addEventListener('click', () => {
@@ -85,8 +88,30 @@ function adddToDo(name, notes, dueDate, priority, progress) {
     let latestName = document.createElement('div')
     latestName.style.cssText = 'padding: 2px'
     latestName.textContent = `Name: ${name}`
-    //change name
-        
+
+    //Button to show the change name dialog
+    let changeName = document.createElement('button')
+    changeName.textContent = 'Change Name'
+    changeName.style.cssText = 'padding: 2px'
+    changeName.addEventListener('click', () => {
+        dialogChangeName.showModal()
+    })
+
+    //Changes todo's name based on input
+    changeNameAdd.addEventListener('click', () => {
+        let changeNameInput = document.getElementById('input-change-name').value
+        let indexChangeName = todos.map(e => e.tdName).indexOf(`${name}`)
+        todos[indexChangeName].tdName = changeNameInput
+        renderToDo()
+        dialogChangeName.close()
+    })
+    // each todo needs its own changeName dialog?
+
+    //Exits the dialog
+    changeNameExit.addEventListener('click', () => {
+        dialogChangeName.close()
+    })
+    
     //Generates todo notes
     let latestNotes = document.createElement('div')
     latestNotes.style.cssText = 'padding: 2px'
@@ -143,13 +168,19 @@ function adddToDo(name, notes, dueDate, priority, progress) {
         renderToDo()
     })
 
+    
+
     //Adds the HTML to the container
     container.appendChild(latestToDoDiv)
+
     latestToDoDiv.appendChild(latestName)
     latestToDoDiv.appendChild(latestNotes)
     latestToDoDiv.appendChild(latestDueDate)
     latestToDoDiv.appendChild(latestPriority)
     latestToDoDiv.appendChild(latestProgress)
+
+    latestToDoDiv.appendChild(changeName)
     latestToDoDiv.appendChild(changeProgress)
+    
     latestToDoDiv.appendChild(removeButton)
 }
