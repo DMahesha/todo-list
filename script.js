@@ -13,15 +13,10 @@ button to order todos by:
 - priority
 - progress
 */
-
-
 const container = document.getElementById('container')
 const dialog = document.getElementById('dialog')
 const closeDiaglog = document.getElementById('close-dialog')
 const addToDo = document.getElementById('add-todo')
-const dialogChangeName = document.getElementById('dialog-change-name')
-const changeNameAdd = document.getElementById('change-name-add')
-const changeNameExit = document.getElementById('change-name-exit')
 
 let todos = []
 
@@ -37,14 +32,12 @@ closeDiaglog.addEventListener('click', () => {
     dialog.close()
 })
 
-class todo {
-    constructor (name, notes, dueDate, priority, progress){
-        this.tdName = name,
-        this.tdNotes = notes,
-        this.tdDueDate = dueDate,
-        this.tdPriority = priority,
-        this.tdProgress = progress
-    }
+function todo (name, notes, dueDate, priority, progress) {
+    this.tdName = name,
+    this.tdNotes = notes,
+    this.tdDueDate = dueDate,
+    this.tdPriority = priority,
+    this.tdProgress = progress
 }
 
 //Initial input from the user
@@ -94,24 +87,21 @@ function adddToDo(name, notes, dueDate, priority, progress) {
     changeName.textContent = 'Change Name'
     changeName.style.cssText = 'padding: 2px'
     changeName.addEventListener('click', () => {
-        dialogChangeName.showModal()
+        const testDiv = document.createElement('div')
+        latestToDoDiv.appendChild(testDiv)
+        const testInput = document.createElement('input')
+        testDiv.appendChild(testInput)
+        const testChange = document.createElement('button')
+        testChange.textContent = 'Change'
+        testDiv.appendChild(testChange)
+
+        testChange.addEventListener('click', () => {
+            let index = todos.map(e => e.tdName).indexOf(`${name}`)
+            todos[index].tdName = testInput.value
+            renderToDo()
+        })
     })
 
-    //Changes todo's name based on input
-    changeNameAdd.addEventListener('click', () => {
-        let changeNameInput = document.getElementById('input-change-name').value
-        let indexChangeName = todos.map(e => e.tdName).indexOf(`${name}`)
-        todos[indexChangeName].tdName = changeNameInput
-        renderToDo()
-        dialogChangeName.close()
-    })
-    // each todo needs its own changeName dialog?
-
-    //Exits the dialog
-    changeNameExit.addEventListener('click', () => {
-        dialogChangeName.close()
-    })
-    
     //Generates todo notes
     let latestNotes = document.createElement('div')
     latestNotes.style.cssText = 'padding: 2px'
